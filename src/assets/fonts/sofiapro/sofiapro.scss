@@ -1,0 +1,21 @@
+@font-face {
+    font-family: 'sofia-pro';
+    src: url('./sofiapro-bold.woff2') format('woff2'), url('./sofiapro-bold.woff') format('woff'),
+        url('./sofiapro-bold.otf') format('opentype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'sofia-pro';
+    src: url('./sofiapro.woff2') format('woff2'), url('./sofiapro.woff') format('woff'),
+        url('./sofiapro.otf') format('opentype');
+    font-display: auto;
+    font-style: normal;
+    font-weight: 400;
+}
+
+.tk-sofia-pro {
+    font-family: 'sofia-pro', sans-serif;
+}

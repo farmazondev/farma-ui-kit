@@ -1,0 +1,31 @@
+@font-face {
+    font-family: averta;
+    src: url(./averta-regular.woff2) format('woff2'), url(./averta-regular.woff) format('woff'),
+        url(./averta-regular.otf) format('truetype'), url(./averta-regular.ttf) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: averta;
+    src: url(./avertastandard-semibold-webfont.woff2) format('woff2'), url(./avertastandard-semibold-webfont.woff) format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: averta;
+    src: url(./averta-bold.woff2) format('woff2'), url(./averta-bold.woff) format('woff'),
+        url(./averta-bold.otf) format('truetype'), url(./averta-bold.ttf) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: averta;
+    src: url(./averta-extrabold.woff2) format('woff2'), url(./averta-extrabold.woff) format('woff'),
+        url(./averta-extrabold.otf) format('truetype'), url(./averta-extrabold.ttf) format('truetype');
+    font-weight: 900;
+    font-style: normal;
+}

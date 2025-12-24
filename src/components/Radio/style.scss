@@ -1,0 +1,163 @@
+.radio {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+
+  input {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .circle-icon {
+    margin-right: 10px;
+    border-radius: 50%;
+    height: 22px;
+    width: 22px;
+    min-width: 22px;
+    flex-shrink: 0;
+    border: 2px solid #c5c5c5;
+    background-color: #fff;
+    position: relative;
+    transition: all 0.3s;
+    // box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+    &.selected {
+      background: #FFA900;
+      border-color: #FFA900;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1);
+        width: 8px;
+        height: 8px;
+        background-color: #fff;
+        border-radius: 50%;
+        transition: all 0.4s;
+      }
+    }
+
+    &.unselected {
+      &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        width: 8px;
+        height: 8px;
+        background-color: transparent;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .text {
+    flex: 1;
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .separator-action {
+    background: none;
+    border: none;
+    color: #0084ff;
+    cursor: pointer;
+    font-size: 12px;
+    padding: 4px 8px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    border-radius: 5px;
+
+    &:hover {
+      color: #0066c5;
+      background-color: rgba(0, 132, 255, 0.08);
+    }
+
+    &:active {
+      background-color: rgba(0, 132, 255, 0.15);
+    }
+  }
+
+  .sub-label {
+    color: #757575;
+    font-size: 12px;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  // Hover effect
+  &:not(.disabled) {
+    &:hover {
+      .circle-icon {
+        &.unselected {
+          border-color: #ffa900;
+          // box-shadow: 0 4px 8px rgba(255, 169, 0, 0.15);
+        }
+
+        &.selected {
+          background-color: #E99A00;
+            border-color: #E99A00;
+        }
+      }
+    }
+  }
+
+  label {
+    align-items: center;
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  // Disabled state
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    label {
+      cursor: not-allowed;
+    }
+
+    .circle-icon {
+      cursor: not-allowed;
+      background-color: #f5f5f5;
+      border-color: #e0e0e0;
+      box-shadow: none;
+
+      &.selected {
+        background: linear-gradient(135deg, #d4d4d4 0%, #c8c8c8 100%);
+        border-color: #d4d4d4;
+      }
+    }
+
+    .text,
+    .sub-label {
+      color: #999;
+    }
+
+    .separator-action {
+      cursor: not-allowed;
+      color: #bbb;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+  }
+}

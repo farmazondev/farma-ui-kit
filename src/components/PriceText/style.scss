@@ -1,0 +1,40 @@
+.price-text {
+  display: inline-block;
+  color: #081030;
+  font-size: var(--price-text-size, 14px);
+  position: relative;
+
+  &--bold {
+    font-weight: 600;
+  }
+
+  &--extraBold {
+    font-weight: 900;
+  }
+
+  &--default {
+    color: #081030;
+  }
+
+  &--purple {
+    color: #2E1098;
+  }
+
+  &--crossOut {
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 100%;
+      height: 1px;
+      background-color: #081030;
+    
+    }
+  }
+
+  .price-sub {
+    margin-left: 2px;
+    font-size: var(--price-sub-size, 10.5px);
+  }
+}

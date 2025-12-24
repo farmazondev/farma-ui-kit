@@ -1,0 +1,60 @@
+.f-text {
+  margin: 0;
+  padding: 0;
+  &.text-small {
+    font-size: 12px;
+  }
+
+  &.white-box-title {
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+}
+
+h1.f-text {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+h2.f-text {
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+h3.f-text {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+h4.f-text {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+h5.f-text {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+h6.f-text {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+}
+
+p.f-text {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+span.f-text {
+  font-size: 12px;
+  line-height: 20px;
+}
+

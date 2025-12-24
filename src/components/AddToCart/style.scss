@@ -1,0 +1,135 @@
+.add-to-cart {
+  display: block;
+  &--default {
+    background-color: #ffa900;
+
+    &:hover {
+      background-color: #ff9500;
+    }
+  }
+
+  &--gray {
+    background-color: #ddd;
+    color: #333;
+
+    &:hover {
+      background-color: #ccc;
+    }
+  }
+
+  &.sm {
+    width: 118px;
+  }
+
+  &.lg {
+    width: 148px;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.cart-quantity-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border-radius: 5px;
+  padding: 6px;
+  height: 36px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &--default {
+    background-color: #ffa900;
+
+    .cart-action-btn {
+      background-color: #ffa900;
+      color: white;
+      &.decrement:hover,
+      &.increment:hover {
+        background-color: #e99a00;
+      }
+    }
+  }
+
+  &--gray {
+    background-color: #ddd;
+
+    .cart-action-btn {
+      background-color: #ddd;
+      color: #333;
+
+      &.decrement:hover,
+      &.increment:hover {
+        background-color: #ccc;
+      }
+    }
+  }
+
+  &--sm {
+    width: 118px;
+
+    .quantity-display {
+      min-width: 46px;
+    }
+
+    .cart-action-btn {
+      width: 30px;
+      height: 28px;
+      padding: 0;
+      border-radius: 5px;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  &--lg {
+    width: 148px;
+
+    .quantity-display {
+      min-width: 84px;
+      margin: 0 7px;
+    }
+
+    .cart-action-btn {
+      width: auto;
+      padding: 5px 2px;
+      border-radius: 5px;
+      height: 22px;
+
+      svg {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+
+  .cart-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.5;
+    }
+  }
+
+  .quantity-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    background-color: #fff;
+    color: #000;
+    font-size: 18px;
+    border-radius: 5px;
+    margin: 0 4px;
+  }
+}

@@ -1,0 +1,86 @@
+@use "../assets/fonts/averta/averta" as *;
+
+:root {
+  // Colors
+  --button-red: #ea6a6a;
+  --button-green: #159f52;
+  --button-black: #000;
+  --button-purple: #2e1098;
+  --button-white: #fff;
+  --button-orange: #ffa900;
+}
+
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+  font-family: averta, sans-serif;
+}
+
+body {
+  background-color: #efefef;
+}
+
+input,
+button,
+textarea,
+select {
+  -webkit-appearance: none;
+  color: #000;
+  font-family: averta, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
+  margin: 0;
+  outline: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+.row {
+  padding: 10px;
+
+  h2 {
+    margin-bottom: 6px;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: baseline;
+    border: 1px solid #d2d2d2;
+    border-radius: 10px;
+    width: max-content;
+    padding: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fffdfd;
+  }
+}
+
+.grup{
+      display: flex;
+    gap: 12px;
+}
