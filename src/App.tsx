@@ -18,6 +18,7 @@ import {
   CreditCardIcon,
 } from "lucide-react";
 import "./styles/global.scss";
+import Modal, { Button as ButtonType } from "./components/Modal";
 
 function App() {
   const [selectedOption, setSelectedOption] = useState("option1");
@@ -26,64 +27,77 @@ function App() {
   const [selectedOrangeVariant, setSelectedOrangeVariant] =
     useState("orange-1");
   const [selectedSelect, setSelectedSelect] = useState("option1");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const buttons: Array<ButtonType> = [
+    {
+      text: "İptal",
+      onClick: () => setIsModalOpen(false),
+    },
+    {
+      text: "Onayla",
+      onClick: () => alert("Onaylandı"),
+    },
+  ];
 
   return (
     <>
       <div className="row">
         <h2>Buttons</h2>
         <div className="wrapper">
+          <Button title="Modal Aç" onClick={() => setIsModalOpen(true)} />
+          <Modal
+            title="Modal Başlığı"
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)}
+            position="center"
+            width={800}
+            buttons={buttons}
+          >
+            <p>
+              Modal içeriği buraya gelecek.Modal içeriği buraya gelecek.Modal
+              içeriği buraya gelecek.Modal içeriği buraya gelecek.Modal içeriği
+              buraya gelecek.
+            </p>
+          </Modal>
           <Button
             title="İlan Detayına Git"
             className="full-width"
             onClick={() => alert("Detaya Gidildi")}
-          >
-            {" "}
-          </Button>
+          />
           <Button
             variant="red"
             title="Sepete Ekle"
             onClick={() => alert("Eklendi")}
-          >
-            {" "}
-          </Button>
+          />
           <Button
             variant="light"
             title="Sepete Ekle"
             onClick={() => alert("Eklendi")}
-          >
-            {" "}
-          </Button>
+          />
           <Button
             variant="light-purple"
             title="Sepete Ekle"
             onClick={() => alert("Eklendi")}
-          >
-            {" "}
-          </Button>
+          />
           <Button
             variant="ghost purple"
             title="Sonraki Sayfa"
             onClick={() => alert("Eklendi")}
-          >
-            {" "}
-          </Button>
+          />
           <Button
             variant="white"
             title="Sepete Ekle"
             onClick={() => alert("Eklendi")}
             leftIcon={<FilterIcon />}
-          >
-            {" "}
-          </Button>
+          />
           <Button
             title="İlan Detayına Git"
             disabled
             onClick={() => alert("deneme")}
             leftIcon={<Plus />}
             rightIcon={<MinusCircle />}
-          >
-            {" "}
-          </Button>
+          />
         </div>
       </div>
 
@@ -201,7 +215,6 @@ function App() {
             value="option2"
             checked={selectedOption === "option2"}
             onChange={(e) => setSelectedOption(e.target.value)}
-            onClick={() => alert("Kargo seçimi değiştirildi!")}
             disabled={false}
           />
 

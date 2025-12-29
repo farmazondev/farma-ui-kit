@@ -1,7 +1,15 @@
 import { useRef } from "react";
 
-export const useFormValidation = (fieldNames = []) => {
-  const refsMap = useRef({});
+interface FieldRef {
+  current: any;
+}
+
+interface RefsMap {
+  [key: string]: FieldRef;
+}
+
+export const useFormValidation = (fieldNames: string[] = []) => {
+  const refsMap = useRef<RefsMap>({});
 
   // Initialize refs on first render
   fieldNames.forEach((fieldName) => {
@@ -10,7 +18,7 @@ export const useFormValidation = (fieldNames = []) => {
     }
   });
 
-  const validate = () => {
+  const validate = (): boolean => {
     let isValid = true;
 
     fieldNames.forEach((fieldName) => {

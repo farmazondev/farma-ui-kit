@@ -2,7 +2,20 @@ import React, { useRef, useState } from "react";
 import { Check } from "lucide-react";
 import "./style.scss";
 
-const Checkbox = ({
+interface CheckboxProps {
+  label?: string;
+  checked?: boolean;
+  disabled?: boolean;
+  name?: string;
+  required?: boolean;
+  validateMessage?: string | null;
+  isLabelNotClickable?: boolean;
+  onChange?: (checked: boolean) => void;
+  variant?: "default" | "blue";
+  className?: string;
+}
+
+const Checkbox: React.FC<CheckboxProps> = ({
   label = "",
   checked = false,
   disabled = false,
@@ -10,7 +23,7 @@ const Checkbox = ({
   required = false,
   validateMessage = null,
   isLabelNotClickable = false,
-  onChange = undefined,
+  onChange,
   variant = "default",
   className = "",
 }) => {
@@ -25,7 +38,11 @@ const Checkbox = ({
   };
 
   return (
-    <div className={`checkbox ${disabled ? "disabled" : ""} ${variant} ${className}`}>
+    <div
+      className={`checkbox ${
+        disabled ? "disabled" : ""
+      } ${variant} ${className}`}
+    >
       <label htmlFor={refId.current}>
         <input
           id={refId.current}

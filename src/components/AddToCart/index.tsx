@@ -3,7 +3,19 @@ import { Plus, Minus, Trash2 } from "lucide-react";
 import Button from "../Button";
 import "./style.scss";
 
-const AddToCart = ({
+interface AddToCartProps {
+  onAddToCart?: () => void;
+  onQuantityChange?: (quantity: number) => void;
+  onRemoveFromCart?: () => void;
+  label?: string;
+  className?: string;
+  size?: "sm" | "lg";
+  variant?: "default" | "gray";
+  isSelectedCount?: number | null;
+  maxValue?: number | null;
+}
+
+const AddToCart: React.FC<AddToCartProps> = ({
   onAddToCart = () => {},
   onQuantityChange = () => {},
   onRemoveFromCart = () => {},
@@ -77,7 +89,7 @@ const AddToCart = ({
         type="button"
         className="cart-action-btn increment"
         onClick={handleIncrement}
-        disabled={maxValue && quantity >= maxValue}
+        disabled={maxValue ? quantity >= maxValue : false}
         title="Arttır"
       >
         <Plus size={18} />

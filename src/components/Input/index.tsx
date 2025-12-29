@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { X } from "lucide-react";
 import {
   applyMask,
@@ -7,10 +7,49 @@ import {
 } from "../../utils/inputValidators";
 import "./style.scss";
 
+type InputType =
+  | "text"
+  | "email"
+  | "phone"
+  | "iban"
+  | "number"
+  | "taxNumber"
+  | "identityNumber"
+  | "mersisNumber"
+  | "ccNumber"
+  | "ccExpiration";
 
-const Input = React.forwardRef(
+interface InputProps
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    "type" | "onChange" | "onError"
+  > {
+  name?: string;
+  label?: string;
+  icon?: React.ReactNode;
+  placeholder?: string;
+  type?: InputType;
+  onError?: (hasError: boolean) => void;
+  showError?: boolean;
+  required?: boolean;
+  onChange?: (event: { target: { value: string } }) => void;
+  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    { name, label, icon, placeholder = "", type = "text", onError, showError = false, required = false, ...props },
+    {
+      name,
+      label,
+      icon,
+      placeholder = "",
+      type = "text",
+      onError,
+      showError = false,
+      required = false,
+      ...props
+    },
     ref
   ) => {
     const [value, setValue] = useState("");
@@ -29,7 +68,7 @@ const Input = React.forwardRef(
 
     const showClearButton = value.length >= 3;
 
-    const handleInputChange = (newValue) => {
+    const handleInputChange = (newValue: string) => {
       // Apply masking only
       const maskedValue = applyMask(type, newValue);
       setValue(maskedValue);
@@ -46,7 +85,7 @@ const Input = React.forwardRef(
         setErrorMessage("Bu alan gereklidir");
         onError?.(true);
       } else if (!isInputValid && value.length > 0) {
-        setErrorMessage(getErrorMessage(type, value));
+        setErrorMessage(getErrorMessage(type));
         onError?.(true);
       } else {
         setErrorMessage("");

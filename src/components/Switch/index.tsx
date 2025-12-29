@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import "./style.scss";
 
-const Switch = ({
+interface SwitchProps {
+  checked?: boolean;
+  onChange?: (checked: boolean) => void;
+  disabled?: boolean;
+  size?: "small" | "large";
+  label?: string;
+  className?: string;
+}
+
+const Switch: React.FC<SwitchProps> = ({
   checked = false,
   onChange = () => {},
   disabled = false,

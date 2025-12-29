@@ -2,7 +2,24 @@ import React, { useState, useRef, useEffect } from "react";
 import { ChevronDown, ChevronUp, Check } from "lucide-react";
 import "./style.scss";
 
-const Select = ({
+interface SelectOption {
+  value: string;
+  label: string;
+}
+
+interface SelectProps {
+  label?: string;
+  placeholder?: string;
+  options?: SelectOption[];
+  value?: string;
+  onChange?: (value: string) => void;
+  required?: boolean;
+  hint?: string;
+  disabled?: boolean;
+  className?: string;
+}
+
+const Select: React.FC<SelectProps> = ({
   label = "",
   placeholder = "Select",
   options = [],
@@ -14,13 +31,16 @@ const Select = ({
   className = "",
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const wrapperRef = useRef(null);
-  const selectBtnRef = useRef(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const selectBtnRef = useRef<HTMLButtonElement>(null);
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        wrapperRef.current &&
+        !wrapperRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -34,7 +54,7 @@ const Select = ({
     setIsOpen(!isOpen);
   };
 
-  const handleOptionClick = (optionValue) => {
+  const handleOptionClick = (optionValue: string) => {
     if (disabled) return;
     onChange(optionValue);
     setIsOpen(false);

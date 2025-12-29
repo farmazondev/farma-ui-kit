@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import "./style.scss";
 
-const formatBoldText = (text) => {
+const formatBoldText = (text: string): React.ReactNode => {
   //rakam görünce otomatik bold yapıyor
   return text
     .split(/(\d+\s?TL)/)
@@ -10,7 +10,21 @@ const formatBoldText = (text) => {
     );
 };
 
-const Radio = ({
+interface RadioProps {
+  disabled?: boolean;
+  className?: string | null;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  checked?: boolean;
+  name?: string;
+  value?: string;
+  label?: string | React.ReactNode;
+  subLabel?: string | React.ReactNode | null;
+  showChangeButton?: boolean;
+  changeButtonOnClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  isLabelBoldPrice?: boolean;
+}
+
+const Radio: React.FC<RadioProps> = ({
   disabled = false,
   className = null,
   onChange = () => {},
@@ -25,7 +39,7 @@ const Radio = ({
 }) => {
   const refId = useRef(`radio-${Math.random().toString(36).substr(2, 9)}`);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
     onChange(e);
   };
