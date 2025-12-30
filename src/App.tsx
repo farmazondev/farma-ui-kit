@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import "./styles/global.scss";
 import Modal, { Button as ButtonType } from "./components/Modal";
+import ProgressBar from "./components/ProgressBar";
 
 function App() {
   const [selectedOption, setSelectedOption] = useState("option1");
@@ -33,15 +34,21 @@ function App() {
     {
       text: "İptal",
       onClick: () => setIsModalOpen(false),
+      variant: "light-purple",
     },
     {
       text: "Onayla",
       onClick: () => alert("Onaylandı"),
+      variant: "purple",
     },
   ];
 
   return (
     <>
+      <div className="row">
+        <h2>ProgressBar</h2>
+        <ProgressBar minValue={60} maxValue={100} fillColor="purple" />
+      </div>
       <div className="row">
         <h2>Buttons</h2>
         <div className="wrapper">
@@ -50,9 +57,8 @@ function App() {
             title="Modal Başlığı"
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
-            position="center"
-            width={800}
             buttons={buttons}
+            type="info"
           >
             <p>
               Modal içeriği buraya gelecek.Modal içeriği buraya gelecek.Modal
