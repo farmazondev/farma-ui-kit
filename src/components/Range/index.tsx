@@ -8,8 +8,9 @@ import {
 } from "react";
 import { Info } from "lucide-react";
 import "./style.scss";
+import { FillColors, FillColor } from "../../contants";
 
-interface ProgressBarProps {
+interface RangeProps {
   /**
    * progress bar için minimum değer
    * @default 0
@@ -21,18 +22,20 @@ interface ProgressBarProps {
    */
   /**
    * Progress bar rengini ayarlamak için
-   * @default "#2E1098"
+   * @default "default"
    */
-  fillColor?: string;
+  fillColor?: FillColor;
   maxValue?: number;
   label?: string;
+  onChange?: (value: number) => void;
 }
 
-const ProgressBar: FC<ProgressBarProps> = ({
+const Range: FC<RangeProps> = ({
   minValue = 0,
   maxValue = 150,
   label = "Label",
-  fillColor = "#2E1098",
+  fillColor = "default",
+  onChange,
 }) => {
   const [value, setValue] = useState(minValue);
   const [isDragging, setIsDragging] = useState(false);
@@ -53,33 +56,35 @@ const ProgressBar: FC<ProgressBarProps> = ({
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
     if (!isDragging) return;
-
     const rect = e.currentTarget.getBoundingClientRect();
     const newValue = calculateValue(e.clientX, rect);
     setValue(Number(newValue.toFixed(0)));
   };
 
   const handleMouseUp = () => {
-    setIsDragging(false);
+    if (isDragging) {
+      setIsDragging(false);
+      onChange?.(value);
+    }
   };
 
   useEffect(() => {
     setValue(minValue);
   }, [minValue]);
 
-  const progressPercentage = (value / maxValue) * 100;
+  const rangePercentage = (value / maxValue) * 100;
 
   return (
-    <section className="progress-bar-container">
-      <div className="progress-bar-info">
-        <div className="progress-bar-label">
+    <section className="range-container">
+      <div className="range-info">
+        <div className="range-label">
           <span className="text">{label}</span>
           <Info width={16} height={16} color="#757575" />
         </div>
         <span className="percentage">{value}</span>
       </div>
       <div
-        className="progress-bar-fill-area"
+        className="range-fill-area"
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -89,9 +94,9 @@ const ProgressBar: FC<ProgressBarProps> = ({
           className="percentage"
           style={
             {
-              width: `${progressPercentage}%`,
-              backgroundColor: fillColor,
-              "--fill-color": fillColor,
+              width: `${rangePercentage}%`,
+              backgroundColor: FillColors[fillColor],
+              "--fill-color": FillColors[fillColor],
             } as CSSProperties
           }
         />
@@ -100,4 +105,4 @@ const ProgressBar: FC<ProgressBarProps> = ({
   );
 };
 
-export default memo(ProgressBar);
+export default memo(Range);

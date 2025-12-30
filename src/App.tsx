@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Button from "./components/Button";
 import Text from "./components/Text";
 import Input from "./components/Input";
@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import "./styles/global.scss";
 import Modal, { Button as ButtonType } from "./components/Modal";
-import ProgressBar from "./components/ProgressBar";
+import Range from "./components/Range";
 
 function App() {
   const [selectedOption, setSelectedOption] = useState("option1");
@@ -43,11 +43,15 @@ function App() {
     },
   ];
 
+  const onChange = useCallback((value: number) => {
+    console.log(value);
+  }, []);
+
   return (
     <>
       <div className="row">
-        <h2>ProgressBar</h2>
-        <ProgressBar minValue={60} maxValue={100} fillColor="purple" />
+        <h2>Range</h2>
+        <Range minValue={60} maxValue={100} onChange={onChange} />
       </div>
       <div className="row">
         <h2>Buttons</h2>
@@ -58,7 +62,6 @@ function App() {
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             buttons={buttons}
-            type="info"
           >
             <p>
               Modal içeriği buraya gelecek.Modal içeriği buraya gelecek.Modal

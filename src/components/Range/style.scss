@@ -1,15 +1,15 @@
-.progress-bar-container {
+.range-container {
   display: flex;
   flex-direction: column;
   row-gap: 12px;
   width: 340px;
 
-  .progress-bar-info {
+  .range-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    .progress-bar-label {
+    .range-label {
       display: flex;
       column-gap: 12px;
 
@@ -33,7 +33,7 @@
     }
   }
 
-  .progress-bar-fill-area {
+  .range-fill-area {
     height: 8px;
     // background-color: #ececec;
     background-color: #bcbcbc;
