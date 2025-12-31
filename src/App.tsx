@@ -29,7 +29,7 @@ function App() {
   const [selectedOrangeVariant, setSelectedOrangeVariant] =
     useState("orange-1");
   const [selectedSelect, setSelectedSelect] = useState<string | Array<string>>(
-    []
+    ""
   );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -349,7 +349,6 @@ function App() {
             value={selectedSelect}
             onChange={setSelectedSelect}
             hint="Lütfen bir seçenek seçiniz"
-            multiple
           />
         </div>
 

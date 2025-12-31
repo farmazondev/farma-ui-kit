@@ -1,3 +1,14 @@
+@keyframes fadeDown {
+  0% {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .select-wrapper {
   width: 100%;
   max-width: 100%;
@@ -149,6 +160,7 @@
     box-shadow: 0px 4px 8px 0px #6060601a, 0px 2px 4px 0px #6060601c,
       0px 0px 2px 0px #6060601f;
     overflow: hidden;
+    animation: fadeDown 0.3s ease-in-out;
 
     .select-menu {
       list-style: none;

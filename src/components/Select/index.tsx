@@ -3,7 +3,7 @@ import React, {
   useRef,
   useEffect,
   useMemo,
-  MouseEvent as ScrollEvent,
+  MouseEvent as Event,
 } from "react";
 import { ChevronDown, ChevronUp, Check, CircleX } from "lucide-react";
 import "./style.scss";
@@ -70,7 +70,11 @@ const Select: React.FC<SelectProps> = ({
         onChange(value.filter((val) => val !== optionValue));
       }
     } else {
-      onChange(optionValue);
+      if (value === optionValue) {
+        onChange("");
+      } else {
+        onChange(optionValue);
+      }
       setIsOpen(false);
     }
   };
@@ -87,16 +91,14 @@ const Select: React.FC<SelectProps> = ({
 
   const displayLabel = useMemo(() => {
     if (multiple && Array.isArray(value) && value.length > 0) {
-      return options
-        .filter((option) => value.includes(option.value))
-        .map((option) => option.label);
+      return options.filter((option) => value.includes(option.value));
     } else if (!multiple && !Array.isArray(value) && value) {
-      return value;
+      return options.find((option) => option.value === value)?.label;
     }
     return placeholder;
   }, [value, placeholder]);
 
-  const onScroll = (e: ScrollEvent<HTMLDivElement>) => {
+  const onScroll = (e: Event<HTMLDivElement>) => {
     const { scrollWidth, scrollLeft, clientWidth, classList } = e.currentTarget;
     if (scrollWidth - scrollLeft === clientWidth) {
       classList.add("scroll-ended");
@@ -105,8 +107,12 @@ const Select: React.FC<SelectProps> = ({
     }
   };
 
-  const removeSelectedItem = (label: string) => {
-    return;
+  const removeSelectedItem = (e: Event<SVGElement>, item: string) => {
+    e.stopPropagation();
+    if (multiple && Array.isArray(value) && value.length > 0) {
+      const filtered = value.filter((val) => val !== item);
+      onChange(filtered);
+    }
   };
 
   return (
@@ -132,13 +138,13 @@ const Select: React.FC<SelectProps> = ({
         >
           <div className="selected-value-area" onScroll={onScroll}>
             {Array.isArray(displayLabel) ? (
-              displayLabel.map((label, index) => (
+              displayLabel.map((item, index) => (
                 <span key={index} className="multiple-item">
-                  {label}
+                  {item.label}
                   <CircleX
                     width={12}
                     height={12}
-                    onClick={() => removeSelectedItem(label)}
+                    onClick={(e) => removeSelectedItem(e, item.value)}
                   />
                 </span>
               ))
