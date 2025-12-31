@@ -20,6 +20,7 @@ import {
 import "./styles/global.scss";
 import Modal, { Button as ButtonType } from "./components/Modal";
 import Range from "./components/Range";
+import ProgressBar from "./components/ProgressBar";
 
 function App() {
   const [selectedOption, setSelectedOption] = useState("option1");
@@ -27,7 +28,9 @@ function App() {
     useState("filled-1");
   const [selectedOrangeVariant, setSelectedOrangeVariant] =
     useState("orange-1");
-  const [selectedSelect, setSelectedSelect] = useState("option1");
+  const [selectedSelect, setSelectedSelect] = useState<string | Array<string>>(
+    []
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const buttons: Array<ButtonType> = [
@@ -49,6 +52,10 @@ function App() {
 
   return (
     <>
+      <div className="row">
+        <h2>Progress Bar</h2>
+        <ProgressBar value={70} fillColor="red" />
+      </div>
       <div className="row">
         <h2>Range</h2>
         <Range minValue={60} maxValue={100} onChange={onChange} />
@@ -342,6 +349,7 @@ function App() {
             value={selectedSelect}
             onChange={setSelectedSelect}
             hint="Lütfen bir seçenek seçiniz"
+            multiple
           />
         </div>
 

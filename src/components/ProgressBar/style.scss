@@ -1,0 +1,21 @@
+@keyframes widthAnimation {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--target-width);
+  }
+}
+
+.progress-bar {
+  width: 320px;
+  height: 6px;
+  border-radius: 100px;
+
+  &-fill {
+    display: flex;
+    height: 100%;
+    border-radius: 100px;
+    animation: widthAnimation 2s ease-in-out forwards;
+  }
+}

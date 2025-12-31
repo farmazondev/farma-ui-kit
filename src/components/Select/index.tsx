@@ -1,5 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
-import { ChevronDown, ChevronUp, Check } from "lucide-react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useMemo,
+  MouseEvent as ScrollEvent,
+} from "react";
+import { ChevronDown, ChevronUp, Check, CircleX } from "lucide-react";
 import "./style.scss";
 
 interface SelectOption {
@@ -11,12 +17,13 @@ interface SelectProps {
   label?: string;
   placeholder?: string;
   options?: SelectOption[];
-  value?: string;
-  onChange?: (value: string) => void;
+  value?: string | Array<any>;
+  onChange?: (value: string | Array<any>) => void;
   required?: boolean;
   hint?: string;
   disabled?: boolean;
   className?: string;
+  multiple?: boolean;
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -29,12 +36,12 @@ const Select: React.FC<SelectProps> = ({
   hint = "",
   disabled = false,
   className = "",
+  multiple = false,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const selectBtnRef = useRef<HTMLButtonElement>(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -56,13 +63,51 @@ const Select: React.FC<SelectProps> = ({
 
   const handleOptionClick = (optionValue: string) => {
     if (disabled) return;
-    onChange(optionValue);
-    setIsOpen(false);
+    if (multiple && Array.isArray(value)) {
+      if (!value.includes(optionValue)) {
+        onChange([...value, optionValue]);
+      } else {
+        onChange(value.filter((val) => val !== optionValue));
+      }
+    } else {
+      onChange(optionValue);
+      setIsOpen(false);
+    }
   };
 
-  // Get selected option label
-  const selectedOption = options.find((opt) => opt.value === value);
-  const displayLabel = selectedOption ? selectedOption.label : placeholder;
+  const getActiveCByValueType = (optionValue: string) => {
+    if (multiple && Array.isArray(value) && value.includes(optionValue)) {
+      return true;
+    }
+    if (!multiple && !Array.isArray(value) && value === optionValue) {
+      return true;
+    }
+    return false;
+  };
+
+  const displayLabel = useMemo(() => {
+    if (multiple && Array.isArray(value) && value.length > 0) {
+      return options
+        .filter((option) => value.includes(option.value))
+        .map((option) => option.label);
+    } else if (!multiple && !Array.isArray(value) && value) {
+      return value;
+    }
+    return placeholder;
+  }, [value, placeholder]);
+
+  const onScroll = (e: ScrollEvent<HTMLDivElement>) => {
+    const { scrollWidth, scrollLeft, clientWidth, classList } = e.currentTarget;
+    if (scrollWidth - scrollLeft === clientWidth) {
+      classList.add("scroll-ended");
+    } else {
+      classList.remove("scroll-ended");
+    }
+  };
+
+  const removeSelectedItem = (label: string) => {
+    return;
+  };
 
   return (
     <div className={`select-wrapper ${className}`} ref={wrapperRef}>
@@ -79,11 +124,29 @@ const Select: React.FC<SelectProps> = ({
           type="button"
           className={`select-button ${isOpen ? "open" : ""} ${
             disabled ? "disabled" : ""
-          } ${value ? "has-value" : ""}`}
+          } ${value ? "has-value" : ""} ${
+            Array.isArray(displayLabel) ? "multiple" : ""
+          }`}
           onClick={handleSelectClick}
           disabled={disabled}
         >
-          <span className="select-text">{displayLabel}</span>
+          <div className="selected-value-area" onScroll={onScroll}>
+            {Array.isArray(displayLabel) ? (
+              displayLabel.map((label, index) => (
+                <span key={index} className="multiple-item">
+                  {label}
+                  <CircleX
+                    width={12}
+                    height={12}
+                    onClick={() => removeSelectedItem(label)}
+                  />
+                </span>
+              ))
+            ) : (
+              <span className="select-text">{displayLabel}</span>
+            )}
+          </div>
+
           <span className="select-icon">
             {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
           </span>
@@ -95,11 +158,13 @@ const Select: React.FC<SelectProps> = ({
               {options.map((option) => (
                 <li
                   key={option.value}
-                  className={`item ${value === option.value ? "active" : ""}`}
+                  className={`item ${
+                    getActiveCByValueType(option.value) ? "active" : ""
+                  }`}
                   onClick={() => handleOptionClick(option.value)}
                 >
                   <span className="option-label">{option.label}</span>
-                  {value === option.value && (
+                  {getActiveCByValueType(option.value) && (
                     <span className="option-check">
                       <Check size={18} />
                     </span>
