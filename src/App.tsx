@@ -82,9 +82,45 @@ function App() {
         <h2>Cards</h2>
         <div className="card-wrapper">
           <CardRow
+            desktopCol={1} 
+            noShadow
+          >
+            <CardItem display="flex">
+              <CardItem.Wrapper>
+                <CardItem.Left>
+                  <img
+                    src="https://staging-cdn.farmazon.com.tr/Photos/Product/thumbs/9c2f9006-6db9-4282-b00f-6382e0272249.jpg"
+                    alt="product"
+                    style={{ width: 80, height: 80, borderRadius: 8 }}
+                  />
+                  <div>
+                    <h4>Ürün Adı</h4>
+                    <p>Wearcare BLT Biolight Akıllı Ateş Ölçer Wearcare BLT Biolight Akıllı Ateş Ölçer</p>
+                  </div>
+                </CardItem.Left>
+
+                <CardItem.Center>
+                  <div>
+                    <p>Stok: 5 adet</p>
+                  </div>
+                </CardItem.Center>
+
+                <CardItem.Right>
+                  <div style={{ textAlign: "right" }}>
+                    <h4>₺999,99</h4>
+                  </div>
+                </CardItem.Right>
+              </CardItem.Wrapper>
+
+              {/* <CardItem.Bottom>ad</CardItem.Bottom> */}
+
+            </CardItem>
+          </CardRow>
+
+          <CardRow
             desktopCol={5}
             mobileCol={2}
-            gap={20} 
+            gap={20}
             // noBorder
             variant="category"
           >
