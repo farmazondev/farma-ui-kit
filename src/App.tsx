@@ -1,4 +1,6 @@
 import { useCallback, useState } from "react";
+import { Home, Star, TrendingUp } from "lucide-react";
+
 import Button from "./components/Button";
 import Text from "./components/Text";
 import Input from "./components/Input";
@@ -21,6 +23,8 @@ import "./styles/global.scss";
 import Modal, { Button as ButtonType } from "./components/Modal";
 import Range from "./components/Range";
 import ProgressBar from "./components/ProgressBar";
+import { CardRow, CardItem } from "./components/Card";
+import Tabs from "./components/Tabs";
 
 function App() {
   const [selectedOption, setSelectedOption] = useState("option1");
@@ -52,6 +56,72 @@ function App() {
 
   return (
     <>
+      <div className="row">
+        <h2>Tabs</h2>
+        <Tabs
+          tabs={[
+            { id: 1, label: "Tüm Ürünler", icon: <Home size={18} /> },
+            { id: 2, label: "Önerilen", icon: <Star size={18} /> },
+            { id: 3, label: "Popüler", icon: <TrendingUp size={18} /> },
+          ]}
+          activeTabId={1}
+          onTabChange={(tabId) => console.log("Selected:", tabId)}
+        />
+        <Tabs
+          tabs={[
+            { id: 1, label: "Tüm Ürünler" },
+            { id: 2, label: "Önerilen" },
+            { id: 3, label: "Popüler" },
+          ]}
+          activeTabId={1}
+          variant="transparent"
+          onTabChange={(tabId) => console.log("Selected:", tabId)}
+        />
+      </div>
+      <div className="row">
+        <h2>Cards</h2>
+        <div className="card-wrapper">
+          <CardRow
+            desktopCol={5}
+            mobileCol={2}
+            gap={20} 
+            // noBorder
+            variant="category"
+          >
+            <CardItem>
+              <div className="item">İçerik 1</div>
+            </CardItem>
+            <CardItem>
+              <div className="item">İçerik 2</div>
+            </CardItem>
+            <CardItem>
+              <div className="item">İçerik 3</div>
+            </CardItem>
+            <CardItem>
+              <div className="item">İçerik 4</div>
+            </CardItem>
+            <CardItem>
+              <div className="item">İçerik 5</div>
+            </CardItem>
+            <CardItem>
+              <div className="item">İçerik 6</div>
+            </CardItem>
+            <CardItem>
+              <div className="item">İçerik 7</div>
+            </CardItem>
+            <CardItem>
+              <div className="item">İçerik 8</div>
+            </CardItem>
+            <CardItem>
+              <div className="item">İçerik 9</div>
+            </CardItem>
+            <CardItem>
+              <div className="item">İçerik 10</div>
+            </CardItem>
+          </CardRow>
+        </div>
+      </div>
+
       <div className="row">
         <h2>Progress Bar</h2>
         <ProgressBar value={70} fillColor="red" />
@@ -116,7 +186,6 @@ function App() {
           />
         </div>
       </div>
-
       <div className="row">
         <h2>Texts</h2>
         <div className="wrapper">
@@ -140,7 +209,6 @@ function App() {
           </Text>
         </div>
       </div>
-
       <div className="row">
         <h2>Inputs</h2>
         <div className="wrapper">
@@ -169,7 +237,6 @@ function App() {
           />
         </div>
       </div>
-
       <div className="row">
         <h2>Checkboxes</h2>
         <div className="wrapper">
@@ -212,7 +279,6 @@ function App() {
           />
         </div>
       </div>
-
       <div className="row">
         <h2>Radios</h2>
         <div className="wrapper">
@@ -262,7 +328,6 @@ function App() {
           />
         </div>
       </div>
-
       <div className="row">
         <h2>Radio Buttons</h2>
         <div className="wrapper">
@@ -331,7 +396,6 @@ function App() {
           </div>
         </div>
       </div>
-
       <div className="row">
         <h2>Select</h2>
         <div className="wrapper">
@@ -366,7 +430,6 @@ function App() {
           />
         </div>
       </div>
-
       <div className="row">
         <h2>Switches</h2>
         <div className="wrapper">
@@ -397,7 +460,6 @@ function App() {
           </div>
         </div>
       </div>
-
       <div className="row">
         <h2>Add To Cart</h2>
         <div className="wrapper">
@@ -439,7 +501,6 @@ function App() {
           </div>
         </div>
       </div>
-
       <div className="row">
         <h2>Price Text</h2>
         <div className="wrapper">
